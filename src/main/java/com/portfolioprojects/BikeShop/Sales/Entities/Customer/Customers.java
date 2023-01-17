@@ -11,6 +11,18 @@ import lombok.Data;
 @Table
  
 public class Customers {
+    public Customers(){}
+    public Customers( String fname, String lname, String phone, String email, String street,
+            String city, String state, String zip) 
+            {
+                this.first_name = fname;
+                this.last_name = lname;
+                this.phone = phone;
+                this.email = email;
+                this.street = street;
+                this.state = state;
+                this.zip_code = zip;
+            }
     @Id
     @SequenceGenerator(
         name = "customer_sequence",
