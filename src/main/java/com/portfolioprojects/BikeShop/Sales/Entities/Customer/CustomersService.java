@@ -1,0 +1,60 @@
+package com.portfolioprojects.BikeShop.Sales.Entities.Customer;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CustomersService {
+
+  @Autowired
+  private CustomerRepository customerRepository;
+
+  public List<Customers> getCustomers() {
+    var customers = customerRepository.findAll();
+    return customers;
+  }
+
+  public String addcustomer(Customers customer) {
+    var found = customerRepository.findCustomerByEmail(customer.getEmail());
+    if (found.isPresent()) {
+      throw new IllegalStateException("Email Taken");
+    } else {
+      customerRepository.save(customer);
+    }
+    return "Customer" + customer.getCustomer_id() + " added";
+  }
+
+  public int deletecustomer(Long id) {
+    var found = customerRepository.findById(id);
+    if (found.isPresent()) {
+      customerRepository.deleteById(id);
+    } else {
+      throw new IllegalStateException(
+        "customer with id " + id + " Not Found, Check id"
+      );
+    }
+    return 1;
+  }
+
+  public int updatecustomersEmail(Long id, Customers customers) {
+    var found = customerRepository.findById(id);
+    if (found.isPresent()) {
+      customerRepository.updatecustomerEmail(id, customers.getEmail());
+    } else {
+      throw new IllegalStateException(
+        "customer with id " + id + " Not Found, Check id"
+      );
+    }
+    return 1;
+  }
+
+public Customers getCustomersById(Long id) {
+    return customerRepository.findById(id).get();
+}
+
+public List<Customers> findCustomersByFirstName(String FirstName) {
+    var response = customerRepository.findCustomersByFirstName(FirstName);
+    return response;
+}
+}
