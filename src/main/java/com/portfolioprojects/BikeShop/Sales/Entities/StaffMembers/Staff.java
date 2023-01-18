@@ -12,6 +12,16 @@ import lombok.Data;
 @Table
 
 public class Staff {
+    public Staff(){};
+    public Staff(String fname, String lname, String email, String phone, Boolean active, int store_id, int manager_id) {
+              this.first_name = fname;
+              this.last_name = lname;
+              this.email = email;
+              this.phone = phone;
+              this.active = active;
+              this.store_id = store_id;
+              this.manager_id = manager_id;
+    }
     @Id
     @SequenceGenerator(
         name = "staff_sequence",
@@ -22,12 +32,12 @@ public class Staff {
         strategy = GenerationType.SEQUENCE,
         generator = "staff_sequence"
     )
-    private int staff_id;
-    private String first_name = null;
-    private String last_name = null;
-    private String email = null;
-    private String phone = null;
+    private int     staff_id;
+    private String  first_name = null;
+    private String  last_name = null;
+    private String  email = null;
+    private String  phone = null;
     private Boolean active;
-    private int store_id;
-    private int manager_id;
+    private int     store_id;
+    private int     manager_id;
 }
