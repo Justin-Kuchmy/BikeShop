@@ -10,6 +10,20 @@ import lombok.Data;
 @Table
 
 public class products {
+    public products(){}
+    public products(
+        String  product_name,
+        int     brand_id,
+        int     category_id,
+        int     model_year,
+        double  list_price
+    ){
+        this.product_name = product_name;
+        this.brand_id = brand_id;
+        this.category_id = category_id;
+        this.model_year = model_year;
+        this.list_price = list_price;
+    }
     @Id
     @SequenceGenerator(
         name = "product_sequence",
@@ -21,9 +35,9 @@ public class products {
         generator = "product_sequence"
     )
     private int product_id;
-    private String product_name = null;
-    private int brand_id;
-    private int category_id;
-    private int model_year;
-    private double list_price;
+    private String  product_name = null;
+    private int     brand_id;
+    private int     category_id;
+    private int     model_year;
+    private double  list_price;
 }

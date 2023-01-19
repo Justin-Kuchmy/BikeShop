@@ -11,6 +11,8 @@ import lombok.Data;
 @Table
 
 public class brands {
+    public brands(){}
+    public brands(String brand_name){this.brand_name = brand_name;}
     @Id
     @SequenceGenerator(
         name = "brand_sequence",

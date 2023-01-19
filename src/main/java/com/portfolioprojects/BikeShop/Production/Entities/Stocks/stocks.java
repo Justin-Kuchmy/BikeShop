@@ -11,6 +11,16 @@ import lombok.Data;
 @Entity
 @Table
 public class stocks {
+    public stocks(){}
+    public stocks(
+        int store_id,
+        int product_id,
+        int quantity
+    ){
+        this.store_id = store_id;
+        this.product_id = product_id;
+        this.quantity = quantity;
+    }
     @Id
     @SequenceGenerator(
         name = "stock_sequence",

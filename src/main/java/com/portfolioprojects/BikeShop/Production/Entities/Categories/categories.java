@@ -11,6 +11,8 @@ import lombok.Data;
 @Table
 
 public class categories {
+    public categories(){}
+    public categories(String category_name){this.category_name = category_name;}
     @Id
     @SequenceGenerator(
         name = "category_sequence",
