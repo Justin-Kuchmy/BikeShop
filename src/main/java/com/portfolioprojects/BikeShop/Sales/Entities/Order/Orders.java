@@ -1,4 +1,12 @@
 package com.portfolioprojects.BikeShop.Sales.Entities.Order;
+
+
+import java.util.List;
+import java.util.Vector;
+
+import com.portfolioprojects.BikeShop.Sales.Entities.OrderItem.Order_items;
+
+import jakarta.persistence.Transient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +19,7 @@ import lombok.Data;
 @Table
 
 public class Orders {
+    
     @Id
     @SequenceGenerator(
         name = "order_sequence",
@@ -29,5 +38,7 @@ public class Orders {
     private String shipped_date = null;
     private int store_id;
     private int staff_id;  
+    @Transient
+    private Vector<Order_items> orderItems = new Vector<Order_items>();
 
 }

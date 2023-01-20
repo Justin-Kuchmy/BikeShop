@@ -33,4 +33,8 @@ public class OrderItemService {
         }
         return 1;
     }
+
+    public List<Order_items> getOrderItemByOrderId(Long id) {
+        return OrderItemRepo.findItemByOrderId(id).get();
+    }
 }

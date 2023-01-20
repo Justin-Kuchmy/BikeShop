@@ -1,10 +1,15 @@
 package com.portfolioprojects.BikeShop.Sales.Entities.Customer;
+import java.util.List;
+
+import com.portfolioprojects.BikeShop.Sales.Entities.Order.Orders;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 @Data
 @Entity
@@ -42,4 +47,7 @@ public class Customers {
     private String city = null;
     private String state = null;
     private String zip_code = null;
+    
+    @Transient
+    private List<Orders> customerOrders;
 }
