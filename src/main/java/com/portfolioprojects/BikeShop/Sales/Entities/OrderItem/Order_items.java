@@ -10,6 +10,24 @@ import lombok.Data;
 @Entity
 @Table
 public class Order_items {
+    public Order_items(){}
+    public Order_items
+    (
+        int order_id,
+        int item_id,
+        int product_id,
+        int quantity,
+        double list_price,
+        double discount
+    )
+    {
+        this.order_id = order_id;
+        this.item_id = item_id;
+        this.product_id = product_id;
+        this.quantity = quantity;
+        this.list_price = list_price;
+        this.discount = discount;   
+    }
     @Id
     @SequenceGenerator(
         name = "orderitem_sequence",
@@ -21,11 +39,10 @@ public class Order_items {
         generator = "orderitem_sequence"
     )
     private int order_item_id;
-    private int order_id;
-    private int item_id;
-    private int product_id;
-
-    private int quantity;
-    private double list_price;
-    private double discount;
+    private int     order_id;
+    private int     item_id;
+    private int     product_id;
+    private int     quantity;
+    private double  list_price;
+    private double  discount;
 }

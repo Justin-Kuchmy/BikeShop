@@ -24,10 +24,16 @@ public class OrderItemController {
     return OrderItemList;
   }
 
-  @GetMapping(path = "id/{OrderItemID}")
+  @GetMapping(path = "OrderItemID/{OrderItemID}")
   public Order_items getOrderItemById(@PathVariable("OrderItemID") Long id) {
     var OrderItemList = OrderItemService.getOrderItemById(id);
     return OrderItemList;
+  }
+
+  @GetMapping(path = "OrderID/{OrderID}")
+  public Order_itemsResponse getOrderItemByOrderId(@PathVariable("OrderID") Long id)
+  {
+    return new Order_itemsResponse(OrderItemService.getOrderItemByOrderId(id));    
   }
 
   @PostMapping
@@ -40,4 +46,5 @@ public class OrderItemController {
   public int deleteOrderItem(@PathVariable("OrderItemID") Long id) {
     return OrderItemService.deleteOrderItem(id);
   }
+
 }

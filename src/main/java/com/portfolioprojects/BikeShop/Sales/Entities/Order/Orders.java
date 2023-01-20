@@ -1,7 +1,5 @@
 package com.portfolioprojects.BikeShop.Sales.Entities.Order;
 
-
-import java.util.List;
 import java.util.Vector;
 
 import com.portfolioprojects.BikeShop.Sales.Entities.OrderItem.Order_items;
