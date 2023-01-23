@@ -40,6 +40,13 @@ public class CustomersController {
         return customer;
     }
 
+    @GetMapping(path = "id/orders/{customerID}")
+    public Customers getCustomersOrdersByCustomerId(@PathVariable("customerID") Long id)
+    {
+        var customer = customerService.getCustomerOrdersByCustomerID(id);
+        return customer;
+    }
+
     @PostMapping()
     public String addcustomer(@RequestBody Customers customers)
     {

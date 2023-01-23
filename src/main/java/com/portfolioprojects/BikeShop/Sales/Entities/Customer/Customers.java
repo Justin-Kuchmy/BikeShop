@@ -1,5 +1,6 @@
 package com.portfolioprojects.BikeShop.Sales.Entities.Customer;
 import java.util.List;
+import java.util.Vector;
 
 import com.portfolioprojects.BikeShop.Sales.Entities.Order.Orders;
 
@@ -49,5 +50,5 @@ public class Customers {
     private String zip_code = null;
     
     @Transient
-    private List<Orders> customerOrders;
+    private Vector<Orders> customerOrders = new Vector<Orders>();
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.portfolioprojects.BikeShop.Sales.Entities.Order.Order_Response;
 
 
 @RestController
@@ -25,12 +26,20 @@ public class OrderController {
     return OrderList;
   }
 
-  @GetMapping(path = "Items/{OrderID}")
+  @GetMapping(path = "items/{OrderID}")
   public Orders getOrderWithItems(@PathVariable("OrderID") Long id)
   {
     var Order = OrderService.getOrderById(id);
     return Order;
   }
+
+  @GetMapping(path = "customer/items/{CustomerID}")
+  public Order_Response getOrdersByCustomerId(@PathVariable("CustomerID") Long id)
+  {
+    var orders = OrderService.getOrdersByCustomerId(id);
+    return new Order_Response(orders);   
+  }
+
 
   @PostMapping
   public String addOrder(@RequestBody Orders Order) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class OrderItemService {
     @Autowired
     private OrderItemRepository OrderItemRepo;
+
     public List<Order_items> getOrderItem() {
         return OrderItemRepo.findAll();
     }

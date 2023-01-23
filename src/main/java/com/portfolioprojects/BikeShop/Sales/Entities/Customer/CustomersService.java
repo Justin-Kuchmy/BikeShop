@@ -3,12 +3,17 @@ package com.portfolioprojects.BikeShop.Sales.Entities.Customer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.portfolioprojects.BikeShop.EntityConfig;
+import com.portfolioprojects.BikeShop.Sales.Entities.Order.Order_Response;
 
 @Service
 public class CustomersService {
 
   @Autowired
   private CustomerRepository customerRepository;
+
+  @Autowired 
+  private CustomerConfig config;
 
   public List<Customers> getCustomers() {
     var customers = customerRepository.findAll();
@@ -56,5 +61,17 @@ public Customers getCustomersById(Long id) {
 public List<Customers> findCustomersByFirstName(String FirstName) {
     var response = customerRepository.findCustomersByFirstName(FirstName);
     return response;
+}
+
+public Customers getCustomerOrdersByCustomerID(Long id) {
+
+     var Customer = customerRepository.findById(id).get();
+
+        var OrderResponse = config.RestTemplate().getForObject("http://localhost:8080/api/v1/orders/customer/items/{id}",Order_Response.class, id);
+
+             if(OrderResponse != null)
+                 OrderResponse.items().forEach((x) -> Customer.getCustomerOrders().add(x));
+
+        return Customer;
 }
 }
