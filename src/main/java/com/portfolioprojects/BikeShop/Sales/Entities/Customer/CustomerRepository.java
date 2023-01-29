@@ -23,7 +23,10 @@ public interface CustomerRepository extends JpaRepository<Customers, Long>{
     @Query("SELECT s FROM Customers s WHERE s.email = ?1" ) 
     Optional<Customers> findCustomerByEmail(String email);
 
-    @Query("SELECT s FROM Customers s WHERE s.first_name = ?1" ) 
-    List<Customers> findCustomersByFirstName(String FirstName);
+    @Query("SELECT s FROM Customers s WHERE LOWER(s.first_name) = ?1 OR LOWER(s.last_name) = ?1" ) 
+    List<Customers> findCustomersByName(String Name);
+
+    @Query("SELECT s FROM Customers s WHERE lower(s.city) = ?1" )
+    List<Customers> findCustomersByCity(String city);
     
 }

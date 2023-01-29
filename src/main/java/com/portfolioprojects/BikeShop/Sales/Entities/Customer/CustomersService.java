@@ -1,10 +1,9 @@
 package com.portfolioprojects.BikeShop.Sales.Entities.Customer;
 
+import com.portfolioprojects.BikeShop.Sales.Entities.Order.Order_Response;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.portfolioprojects.BikeShop.EntityConfig;
-import com.portfolioprojects.BikeShop.Sales.Entities.Order.Order_Response;
 
 @Service
 public class CustomersService {
@@ -12,7 +11,7 @@ public class CustomersService {
   @Autowired
   private CustomerRepository customerRepository;
 
-  @Autowired 
+  @Autowired
   private CustomerConfig config;
 
   public List<Customers> getCustomers() {
@@ -54,24 +53,46 @@ public class CustomersService {
     return 1;
   }
 
-public Customers getCustomersById(Long id) {
+  public Customers getCustomersById(Long id) {
     return customerRepository.findById(id).get();
-}
+  }
 
-public List<Customers> findCustomersByFirstName(String FirstName) {
-    var response = customerRepository.findCustomersByFirstName(FirstName);
+  public List<Customers> findCustomersByName(String FirstName) {
+    var response = customerRepository.findCustomersByName(FirstName);
     return response;
-}
+  }
 
-public Customers getCustomerOrdersByCustomerID(Long id) {
+  public List<Customers> findCustomersByCity(String City) {
+    var response = customerRepository.findCustomersByCity(City);
+    return response;
+  }
 
-     var Customer = customerRepository.findById(id).get();
+  public List<Customers> findByProp(String prop, String value) {
+    List<Customers> response = null;
+    
+    if (prop.equals("name")) {
+      response = customerRepository.findCustomersByName(value.toLowerCase());
+    } else if (prop.equals("city")) {
+      response = customerRepository.findCustomersByCity(value.toLowerCase());
+    }
+    return response;
+  }
 
-        var OrderResponse = config.RestTemplate().getForObject("http://localhost:8080/api/v1/orders/customer/items/{id}",Order_Response.class, id);
+  public Customers getCustomerOrdersByCustomerID(Long id) {
+    var Customer = customerRepository.findById(id).get();
 
-             if(OrderResponse != null)
-                 OrderResponse.items().forEach((x) -> Customer.getCustomerOrders().add(x));
+    var OrderResponse = config
+      .RestTemplate()
+      .getForObject(
+        "http://localhost:8080/api/v1/orders/customer/items/{id}",
+        Order_Response.class,
+        id
+      );
 
-        return Customer;
-}
+    if (OrderResponse != null) OrderResponse
+      .items()
+      .forEach(x -> Customer.getCustomerOrders().add(x));
+
+    return Customer;
+  }
 }
