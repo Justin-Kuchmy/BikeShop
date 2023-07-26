@@ -1,0 +1,7 @@
+pom.xml
+/Backend/run.bat/
+/Backend/customer/src/main/resources/
+/Backend/order/src/main/resources/
+/Backend/orderitem/src/main/resources/
+/Backend/product/src/main/resources/
+Backend/customer/src/main/resources/application.properties

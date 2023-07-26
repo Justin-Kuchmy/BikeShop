@@ -1,0 +1,102 @@
+<mat-card *ngIf="hideEditForm">
+    <form class="search-bar">
+      <mat-form-field class="border-2 border-black pl-4">
+        <span matPrefix></span>
+        <input 
+        matInput
+        name="SearchName"
+        [(ngModel)]="SearchName"
+        />
+  
+        <button matSuffix mat-button class="bg-green-200 hover:bg-green-500"><span (click)="searchByName()">search</span></button>
+      </mat-form-field>
+      <br />
+    </form>
+    <div class="flex justify-center items-center">
+      <label for="PageSize" class="bg-white border border-gray-300 rounded px-4 py-2"># of Customers To Display</label>
+      <select id="pageSize" [(ngModel)]="pageSize" (ngModelChange)="getCustomerData()" class="bg-white border border-gray-300 rounded px-4 py-2 center">
+      <option selected># Per Page</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      </select>
+    </div>
+  
+  
+    <mat-card-content>
+      <table
+        *ngIf="customerDataSource$ | async"
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8 px-4 w-1/2 mx-auto text-center border-4 border-black"
+        matSort
+        #empTbSort="matSort"
+        (matSortChange)="SortProductsWithObjectLiterals($event)"
+        matSortActive="fname"
+        matSortDirection="asc"
+        matSortDisableClear
+      >
+      <div class="">
+        <ng-container matColumnDef="id" class="w-20" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-1/4">
+              <div>Cust ID</div>
+            </th>
+            <td mat-cell *matCellDef="let customer">{{ customer.customerId }}</td>
+          </ng-container>
+          <!-- Date Column -->
+          <ng-container matColumnDef="firstname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >
+              <div >First Name</div>
+            </th>
+            <td mat-cell *matCellDef="let customer">{{ customer.firstName }}</td>
+          </ng-container>
+    
+          <!-- vendor Id Column -->
+          <ng-container matColumnDef="lastname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <div>Last Name</div>
+            </th>
+            <td mat-cell *matCellDef="let customer">{{ customer.lastName }}</td>
+          </ng-container>
+      </div>
+        
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="select(row)" class="cursor-pointer hover:cursor-pointer hover:bg-gray-200"></tr>
+      </table>
+    </mat-card-content>
+    <ng-template #loading class="my-primary-text"
+      >Loading customers from server...</ng-template
+    >
+  </mat-card>
+  
+  <mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    *ngIf="hideEditForm"
+  ></mat-paginator>
+  
+  <mat-card *ngIf="!hideEditForm">
+      <mat-card-footer layout="row">
+        <!-- <mat-card-title><span>{{ msg }}</span></mat-card-title> -->
+      </mat-card-footer>
+      <mat-card-content>
+        <app-customer-details
+        [msg]="msg"
+        [selectedCustomer]="customers"
+        (cancelled)="cancel('cancelled')"
+        (saved)="save($event)"
+        (deleted)="delete($event)"
+        >
+        </app-customer-details>
+      </mat-card-content>
+    </mat-card>
+  
+     
+  <div *ngIf="showNotAuthMessage">
+      <app-custom-modal [Title]="'Not Authorized'" 
+      [Message]="'Please Login using admin admin to view this page'" 
+      (close)="toggleNotAuthModal()"></app-custom-modal>
+    </div>
+  

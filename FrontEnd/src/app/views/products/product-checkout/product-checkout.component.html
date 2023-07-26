@@ -1,0 +1,102 @@
+<div *ngIf="!confirmation">
+    <mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+            Order Items
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- <ul>
+        <li *ngFor="let item of order">{{ item.listPrice }}</li>
+        </ul> -->
+        <table mat-table [dataSource]="cartItems" class="mat-elevation-z8">
+        <ng-container matColumnDef="item">
+            <th mat-header-cell *matHeaderCellDef> Item </th>
+            <td mat-cell *matCellDef="let item"> {{getProductNameFromID(item.productId)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> Quantity </th>
+            <td mat-cell *matCellDef="let item"> {{item.quantity}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <td mat-cell *matCellDef="let item"> {{item.listPrice | currency}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="subtotal">
+            <th mat-header-cell *matHeaderCellDef> Subtotal </th>
+            <td mat-cell *matCellDef="let item"> {{item.listPrice * item.quantity | currency}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['item', 'quantity', 'price', 'subtotal']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['item', 'quantity', 'price', 'subtotal'];"></tr>
+        </table>
+        
+        <p>Subtotal: {{calculateSubtotal() | currency}}</p>
+        <p>Tax: {{calculateTax() | currency}}</p>
+        <p>Grand Total: {{calculateGrandTotal() | currency}}</p>
+    </mat-expansion-panel>
+    
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+            Customer/Shipping Info
+        </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="customerForm" class="max-w-md mx-auto" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+            <label for="firstName" class="block text-gray-700 font-bold mb-2">First Name:</label>
+            <input type="text" id="firstName" formControlName="firstName" name="first" required class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+        </div>
+        <div class="mb-4">
+            <label for="lastName" class="block text-gray-700 font-bold mb-2">Last Name:</label>
+            <input type="text" id="lastName" formControlName="lastName" name="last" required class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+        </div>
+        <div class="mb-4">
+            <label for="phone" class="block text-gray-700 font-bold mb-2">Phone:</label>
+            <input type="tel" id="phone" formControlName="phone" name="phone" required class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+        </div>
+        <div class="mb-4">
+            <label for="email" class="block text-gray-700 font-bold mb-2">Email:</label>
+            <input type="email" id="email" formControlName="email" name="email" required class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+        </div>
+        <div class="mb-4">
+            <label for="street" class="block text-gray-700 font-bold mb-2">Street:</label>
+            <input type="text" id="street" formControlName="street" name="street" required class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+        </div>
+        <div class="mb-4">
+            <label for="city" class="block text-gray-700 font-bold mb-2">City:</label>
+            <input type="text" id="city" formControlName="city" name="city" required class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+        </div>
+        <div class="mb-4">
+            <label for="state" class="block text-gray-700 font-bold mb-2">State:</label>
+            <input type="text" id="state" formControlName="state" name="state" required class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+        </div>
+        <div class="mb-4">
+            <label for="zipCode" class="block text-gray-700 font-bold mb-2">Zip Code:</label>
+            <input type="text" id="zipCode" formControlName="zipCode" name="zip" required class="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+        </div>
+        <button type="submit" class="w-full px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
+        Submit
+        </button>
+        <button mat-raised-button type="button" class="text-white bg-gradient-to-r from-red-300 via-red-500 to-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"  (click)="cancel()">Cancel</button>
+    </form>
+    </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<div *ngIf="confirmation">   
+    <button class="px-4 py-2 bg-blue-500 text-white rounded">Place Order</button>
+    <app-confirmation-modal
+      *ngIf="showConfirmationModal"
+      [customerId]="newCustomerID"
+      [orderId]="newOrderID"
+      [customerName]="customerFullName"
+      [totalCostAfterTax]="orderCost"
+      (confirm)="returnToHome($event)"
+    ></app-confirmation-modal>
+
+</div>
+
+

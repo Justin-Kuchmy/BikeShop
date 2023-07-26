@@ -1,0 +1,48 @@
+
+
+<button mat-raised-button type="button" class="text-white bg-gradient-to-r from-teal-300 via-teal-500 to-teal-600 focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 float-right" (click)="placeOrder()">Checkout</button>
+<button mat-raised-button type="button" class="text-white bg-gradient-to-r from-teal-300 via-teal-500 to-teal-600 focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 float-left" (click)="showSearchPopUp()">Search</button>
+<mat-card-header layout="row">
+    <mat-card-title
+      ><span>{{ msg }}..</span>
+    </mat-card-title>
+</mat-card-header>
+<br>
+<br>
+<!-- <app-product-cart></app-product-cart> -->
+<div [ngSwitch]="selectedComponent">
+  <mat-card *ngSwitchCase='showProducts'>
+    <mat-card-content *ngIf="Products$ | async as prod; else loading">
+          <app-product-list [products]="prod" (selectedItem)="select($event)"></app-product-list>
+      </mat-card-content>
+      <ng-template #loading class="my-primary-text">Loading Products from server...</ng-template>
+</mat-card>
+<mat-card *ngSwitchCase="showCheckOut">
+  <app-product-checkout
+  (cancelled)="cancel('cancelled')"
+  [map]="myMap"
+  ></app-product-checkout>
+</mat-card>
+<mat-card *ngSwitchCase="showDetails">
+    <mat-card-footer layout="row">
+      <mat-card-title
+        ><span>{{ msg }}..</span>
+        </mat-card-title>
+    </mat-card-footer>
+    <mat-card-content>
+      <app-product-details
+      [selectedProduct]="product"
+      [products]="productCart"
+      (cancelled)="cancel('cancelled')"
+      (productToAdd)="addProductToCart($event)"
+      (message)="detailMessage($event)"
+      >
+      </app-product-details>
+    </mat-card-content>
+  </mat-card>
+<mat-card *ngSwitchDefault>Nothing Selected</mat-card>
+</div>
+
+<app-product-filter *ngIf="showFilterPopUp" (cancelled)="showSearchPopUp()" (filterApplied)="applyFilter($event)"></app-product-filter>
+
+

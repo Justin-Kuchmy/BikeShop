@@ -1,0 +1,90 @@
+<div class="grid grid-col-1 gap-4 content-between justify-center">
+    <div class="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 justify-left">
+        <div class="p-6 relative">
+            <div>
+                <img class="object-contain h-48 w-96 top-0 left-0 transform translate-x-64 transition duration-1000" src="../../../assets/bike.png" alt="Article">
+                <a [routerLink]="['../products']" class="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">Products</a>
+                <span  class="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline" tabindex="0" role="link">Bike Shop CRUD Demo</span>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie parturient et sem ipsum volutpat vel. Natoque sem et aliquam mauris egestas quam volutpat viverra. In pretium nec senectus erat. Et malesuada lobortis.</p>
+            </div>
+    
+            <div class="mt-4">
+                <div class="flex items-center">
+                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">19 Mar 2023</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 justify-left">
+        <div class="p-6 relative">
+            <div>
+                <img class="object-contain h-48 w-96 top-0 left-0 transform translate-x-64 transition duration-1000" src="../../../assets/order.png" alt="Article">
+                <a [routerLink]="['../orders']" class="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">Orders</a>
+                <span  class="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline" tabindex="0" role="link">Bike Shop CRUD Demo</span>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie parturient et sem ipsum volutpat vel. Natoque sem et aliquam mauris egestas quam volutpat viverra. In pretium nec senectus erat. Et malesuada lobortis.</p>
+            </div>
+    
+            <div class="mt-4">
+                <div class="flex items-center">
+                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">19 Mar 2023</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 justify-left">
+        <div class="p-6 relative">
+            <div>
+                <img class="object-contain h-48 w-96 top-0 left-0 transform translate-x-64 transition duration-1000" src="../../../assets/customer.png" alt="Article">
+                <a [routerLink]="['../customers']" class="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">Customers</a>
+                <span class="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline" tabindex="0" role="link">Bike Shop CRUD Demo</span>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie parturient et sem ipsum volutpat vel. Natoque sem et aliquam mauris egestas quam volutpat viverra. In pretium nec senectus erat. Et malesuada lobortis.</p>
+            </div>
+    
+            <div class="mt-4">
+                <div class="flex items-center">
+                    <span class="mx-1 text-xs text-gray-600 dark:text-gray-300">19 Mar 2023</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="bg-white dark:bg-gray-900">
+    <div class="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
+        <p>BikeShop</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300">&copy;Justin Kuchmy - 2023 - All Rights Reserved.</p>
+    </div>
+</footer>
+<div *ngIf="showInitialMessage">
+
+</div>
+
+<div *ngIf="showInitialMessage" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex bg-gray-900 bg-opacity-50">
+    <div class="relative w-auto my-6 mx-auto max-w-6xl">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+          <h3 class="text-3xl font-semibold">
+            {{Title}}
+          </h3>
+          <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" (click)="closeDialog()">
+            <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+              ×
+            </span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <p class="my-4 text-slate-500 text-lg leading-relaxed" [innerHTML]="Message"></p>
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+          <button class="bg-red-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="closeDialog()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<router-outlet></router-outlet>

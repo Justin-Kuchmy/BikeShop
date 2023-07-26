@@ -1,0 +1,91 @@
+<div class="">
+    <mat-accordion class="py-2 w-1/2">
+
+      <mat-expansion-panel class="border border-black" [expanded]="true">
+        <mat-expansion-panel-header >
+          <mat-panel-title >
+            Customer Details
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="w-1/2">
+            <div class="flex mb-4"><label class="w-1/3 text-blue-500 font-semibold">Customer ID:</label><label class="w-1/2 bg-gray-100 px-2 py-1 form-control border border-gray-300">{{CustomerforOrder.customerId}}</label></div>    
+            <div class="flex mb-4"><label class="w-1/3 text-blue-500 font-semibold" >First Name:</label><label class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300 " autofocus>{{CustomerforOrder.firstName}} </label></div>
+            <div class="flex mb-4"><label class="w-1/3 text-blue-500 font-semibold" >Last Name:</label><label class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300"  autofocus>{{CustomerforOrder.lastName}} </label></div>
+            <div class="flex mb-4"><label class="w-1/3 text-blue-500 font-semibold" >Email:</label> <label class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300"  autofocus>{{CustomerforOrder.email}} </label></div>
+            <div class="flex mb-4"><label class="w-1/3 text-blue-500 font-semibold" >Phone:</label><label class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300"  autofocus> {{CustomerforOrder.phone}}</label></div>
+            <div class="flex mb-4"><label class="w-1/3 text-blue-500 font-semibold" >Street:</label><label class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" autofocus>{{CustomerforOrder.street}} </label></div>
+            <div class="flex mb-4"><label class="w-1/3 text-blue-500 font-semibold" >City:</label><label class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" autofocus>{{CustomerforOrder.city}} </label> </div>
+            <div class="flex mb-4"><label class="w-1/3 text-blue-500 font-semibold" >State:</label><label class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" autofocus>{{CustomerforOrder.state}} </label></div>
+            <div class="flex mb-4"> <label class="w-1/3 text-blue-500 font-semibold">Zip:</label><label class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" autofocus>{{CustomerforOrder.zipCode}} </label> </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="border border-black" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Order Summary
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+                 <div class="w-1/4 mb-4 border border-black">
+              <h2 class="text-xl font-bold">Order Information</h2>
+              <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Order ID:</label><label class="w-1/2 text-black font-semibold">{{ selectedOrder.orderId }} </label></div>
+              <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Customer ID: </label><label class="w-1/2 text-black font-semibold">{{ selectedOrder.customerId }} </label></div>
+              <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Order Status: </label><label class="w-1/2 text-black font-semibold">{{ selectedOrder.orderStatus }} </label></div>
+              <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Order Date:</label><label class="w-1/2 text-black font-semibold">{{ formatDate(selectedOrder.orderDate) | date }} </label></div>
+              <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Required Date: </label><label class="w-1/2 text-black font-semibold">{{ formatDate(selectedOrder.requiredDate) | date  }} </label></div>
+              <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Store ID: </label><label class="w-1/2 text-black font-semibold">{{ selectedOrder.storeId }} </label></div>
+              <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Staff ID: </label><label class="w-1/2 text-black font-semibold">{{ selectedOrder.staffId }} </label></div>
+            </div>
+           
+      
+
+       
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="border border-black" [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+              Order Items
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <h2 class="text-xl font-bold">Order Items</h2>
+            <table class="min-w-full border border-gray-300">
+              <thead>
+                <tr>
+                  <th class="px-4 py-2 border-b">Product Name</th>
+                  <th class="px-4 py-2 border-b">Quantity</th>
+                  <th class="px-4 py-2 border-b">Price</th>
+                  <th class="px-4 py-2 border-b">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of selectedOrder.orderItems">
+                  <td class="px-4 py-2 border-b text-center">{{  getProductName(item.productId) }}</td>
+                  <td class="px-4 py-2 border-b text-center ">{{ item.quantity }}</td>
+                  <td class="px-4 py-2 border-b text-center">${{ item.listPrice }}</td>
+                  <td class="px-4 py-2 border-b text-center">${{ item.listPrice * item.quantity }}</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 border-b text-center "colspan="3">Subtotal:</td>
+                  <td class="px-4 py-2 border-b text-center">{{calculateSubtotal() | currency}}</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 border-b text-center "colspan="3">Tax:</td>
+                  <td class="px-4 py-2 border-b text-center">{{calculateTax() | currency}}</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 border-b text-center "colspan="3">Total:</td>
+                  <td class="px-4 py-2 border-b text-center">{{calculateGrandTotal() | currency}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+       
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+
+    <button (click)="cancelled.emit(selectedOrder)" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Cancel</button>
+  </div>

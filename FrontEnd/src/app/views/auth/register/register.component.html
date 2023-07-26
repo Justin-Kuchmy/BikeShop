@@ -1,0 +1,80 @@
+<!--<link
+  href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+  rel="stylesheet"
+/>  -->
+<div class="bg-grey-300 min-h-screen flex flex-col">
+    <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+            <h1 class="mb-8 text-3xl text-center">Sign up</h1>
+            <form [formGroup]="registerForm" (ngSubmit)="registerClicked()">
+
+                <input 
+                type="text"
+                class="block border border-grey-light w-full p-3 rounded mb-4"
+                required 
+                autofocus
+                formControlName="firstname"
+                placeholder="First Name" />
+
+                <input 
+                type="text"
+                class="block border border-grey-light w-full p-3 rounded mb-4"
+                required 
+                autofocus
+                formControlName="lastname"
+                placeholder="Last Name" />
+
+            <input
+                type="text"
+                class="block border border-grey-light w-full p-3 rounded mb-4"
+                required 
+                autofocus
+                formControlName="email"
+                placeholder="Email" />
+                <div *ngIf="email.errors && (email.dirty || email.touched)" align="end"> 
+                    <p class="inline-flex text-sm text-red-600" *ngIf="email.hasError('required')">Email is required </p>
+                    <p class="inline-flex text-sm text-red-600" *ngIf="!email.hasError('required') && email.hasError('invalidEmail')">needs valid format  x@x.xx  </p>
+                </div>
+
+            <input 
+                type="password"
+                class="block border border-grey-light w-full p-3 rounded mb-4"
+                required 
+                autofocus
+                formControlName="password"
+                placeholder="Password" />
+            <input 
+                type="password"
+                class="block border border-grey-light w-full p-3 rounded mb-4"
+                required 
+                autofocus
+                formControlName="password"
+                placeholder="Confirm Password" />
+
+                <button
+                [disabled]="!registerForm.valid"
+                type="submit"
+                class="w-full text-center py-3 rounded bg-green-500 text-black focus:outline-none"
+                >Create Account</button>
+                <p class="inline-flex text-sm text-red-600" *ngIf="!registerForm.valid">Check Errors</p>
+            </form>
+
+
+            <div class="text-center text-sm text-grey-dark mt-4">
+                By signing up, you agree to the 
+                <a class="no-underline border-b border-grey-dark text-grey-dark">
+                    Terms of Service
+                </a> and 
+                <a class="no-underline border-b border-grey-dark text-grey-dark">
+                    Privacy Policy
+                </a>
+            </div>
+        </div>
+
+        <div class="text-grey-dark mt-6">
+            Already have an account? 
+            <a [routerLink]="['../../auth/login']" class="no-underline border-b border-blue text-blue">Log in</a>.
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

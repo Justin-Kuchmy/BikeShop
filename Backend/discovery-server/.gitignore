@@ -1,0 +1,40 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+Backend/run.bat
+Backend/order/src/main/resources/application.properties
+Backend/orderitem/src/main/resources/application.properties
+Backend/customer/src/main/resources/application.properties
+Backend/product/src/main/resources/application.properties
+Backend/order/src/main/resources/application.properties
+application.properties
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/

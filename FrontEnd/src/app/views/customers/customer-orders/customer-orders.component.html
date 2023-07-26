@@ -1,0 +1,85 @@
+<div class="mat-pad-sm">
+    <mat-card *ngIf="hideEditForm">
+      <mat-card-content *ngIf="customersOrders$ | async as odr; else loading">
+        <mat-list flex>
+          <app-customers-orders-list [orders]="odr" (selectedItem)="select($event)"></app-customers-orders-list>
+        </mat-list>
+      </mat-card-content>
+      <ng-template #loading class="my-primary-text">Loading Employees from server...</ng-template>
+    </mat-card>
+    <mat-card *ngIf="!hideEditForm">
+      <mat-card-content>
+          <div class="container mx-auto p-4">
+              <h1 class="text-2xl font-bold mb-4">Order Details</h1>
+            
+              <div class="w-1/4 mb-4 border border-black">
+                <h2 class="text-xl font-bold">Order Information</h2>
+                <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Order ID:</label><label class="w-1/2 text-black font-semibold">{{ order.orderId }} </label></div>
+                <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Customer ID: </label><label class="w-1/2 text-black font-semibold">{{ order.customerId }} </label></div>
+                <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Order Status: </label><label class="w-1/2 text-black font-semibold">{{ order.orderStatus }} </label></div>
+                <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Order Date:</label><label class="w-1/2 text-black font-semibold">{{ order.orderDate }} </label></div>
+                <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Required Date: </label><label class="w-1/2 text-black font-semibold">{{ order.requiredDate }} </label></div>
+                <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Store ID: </label><label class="w-1/2 text-black font-semibold">{{ order.storeId }} </label></div>
+                <div class="flex mb-4"><label class="w-1/2 text-blue-500 font-semibold">Staff ID: </label><label class="w-1/2 text-black font-semibold">{{ order.staffId }} </label></div>
+              </div>
+            
+              <div>
+                <h2 class="text-xl font-bold">Order Items</h2>
+                <table class="min-w-full border border-gray-300">
+                  <thead>
+                    <tr>
+                      <th class="px-4 py-2 border-b">Product Name</th>
+                      <th class="px-4 py-2 border-b">Quantity</th>
+                      <th class="px-4 py-2 border-b">Price</th>
+                      <th class="px-4 py-2 border-b">Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of order.orderItems">
+                      <td class="px-4 py-2 border-b text-center">{{ getProductName(item.productId) }}</td>
+                      <td class="px-4 py-2 border-b text-center ">{{ item.quantity }}</td>
+                      <td class="px-4 py-2 border-b text-center">${{ item.listPrice }}</td>
+                      <td class="px-4 py-2 border-b text-center">${{ item.listPrice * item.quantity }}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2 border-b text-center "colspan="3">Subtotal:</td>
+                      <td class="px-4 py-2 border-b text-center">{{calculateSubtotal() | currency}}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2 border-b text-center "colspan="3">Tax:</td>
+                      <td class="px-4 py-2 border-b text-center">{{calculateTax() | currency}}</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2 border-b text-center "colspan="3">Total:</td>
+                      <td class="px-4 py-2 border-b text-center">{{calculateGrandTotal() | currency}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      </mat-card-content>  
+    </mat-card>
+  
+    <mat-card>
+  
+    <span *ngIf="hideEditForm">
+      <button mat-raised-button type="button" 
+      (click)="cancelled.emit()"
+      class="flex-1 bg-red-300 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+      >
+        Cancel
+      </button>
+    </span>
+    <span *ngIf="!hideEditForm">
+      <button mat-raised-button type="button" (click)="Back()">
+          Back
+      </button>
+    </span>
+    <mat-card-footer class="details-message" layout="row">
+      <mat-card-title><span>{{ msg }}</span></mat-card-title>
+  </mat-card-footer>
+  </mat-card>
+  </div>
+  
+  
+  

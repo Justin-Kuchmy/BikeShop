@@ -1,0 +1,100 @@
+
+
+<mat-card *ngIf="hideEditForm && hideOrderPage">
+    <form [formGroup]="customerForm" (ngSubmit)="updateSelectedCustomer()" class="formGroup">
+        <div>
+              <div class="flex mb-4">
+                <label class="w-1/3 text-blue-500 font-semibold">Customer ID:</label>
+                <input type="text" readonly class="w-1/2 bg-gray-100 px-2 py-1 form-control border border-gray-300" value="" formControlName="customerId">
+            </div>
+                  
+            <div class="flex mb-4">
+              <label class="w-1/3 text-blue-500 font-semibold" for="validationTooltip02">First Name:</label>
+              <input type="text" class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300 " id="validationTooltip02" placeholder="First name" value="John" required formControlName="firstName" autofocus>
+            </div>
+
+            <div class="flex mb-4">
+              <label class="w-1/3 text-blue-500 font-semibold" for="validationTooltip03">Last Name:</label>
+              <input type="text" class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" id="validationTooltip03" placeholder="Last name" value="Smith" required formControlName="lastName" autofocus>
+            </div>
+            
+            <div class="flex mb-4">
+              <label class="w-1/3 text-blue-500 font-semibold" for="validationTooltipEmail">Email:</label>
+              
+                <input type="text" class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" id="validationTooltipEmail" placeholder="Email" aria-describedby="validationTooltipEmailPrepend" required formControlName="email" autofocus>
+              
+            </div>
+            <div class="flex mb-4">
+                <label class="w-1/3 text-blue-500 font-semibold" for="validationTooltipPhone">Phone:</label>
+                  <input type="text" class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" id="validationTooltipPhone" placeholder="Phone" aria-describedby="validationTooltipPhonePrepend" required formControlName="phone" autofocus>
+
+              </div>
+    
+              <div class="flex mb-4">
+                <label class="w-1/3 text-blue-500 font-semibold" for="validationTooltipStreet">Street:</label>
+                  <input type="text" class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" id="validationTooltipStreet" placeholder="Street" aria-describedby="validationTooltipStreetPrepend" required formControlName="street" autofocus>
+              </div>
+              
+            <div class="flex mb-4">
+              <label class="w-1/3 text-blue-500 font-semibold" for="validationTooltip04">City:</label>
+              <input type="text" class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" id="validationTooltip04" placeholder="City" required formControlName="city" autofocus>
+
+            </div>
+            <div class="flex mb-4">
+              <label class="w-1/3 text-blue-500 font-semibold" for="validationTooltip05">State:</label>
+              <input type="text" class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" id="validationTooltip05" placeholder="State" required formControlName="state" autofocus>
+ 
+            </div>
+            <div class="flex mb-4">
+              <label class="w-1/3 text-blue-500 font-semibold" for="validationTooltip06">Zip:</label>
+              <input type="text" class="bg-gray-100 px-2 py-1 w-1/2 form-control border border-gray-300" id="validationTooltip06" placeholder="Zip" required formControlName="zipCode" autofocus>
+
+            </div>
+          </div>
+    
+        <div class="mat-pad-sm px-1">
+            <span class="px-1">
+                <button mat-raised-button type="submit" 
+                (click)="updateSelectedCustomer()"
+                class="flex-1 bg-green-300 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
+                >Save</button>
+                </span>
+            <span class="px-1">
+                <button *ngIf="selectedCustomer.customerId" 
+                mat-raised-button type="button"
+                (click)="openDeleteDialog(selectedCustomer)"
+                class="flex-1  bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                >Delete</button>
+            </span> 
+            <span class="px-1">
+                <button mat-raised-button type="button" 
+                (click)="cancelled.emit(selectedCustomer)"
+                class="flex-1 bg-red-300 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                >Cancel</button>
+            </span>
+            <div class="ViewOrders">
+                <span class="px-1">
+                    <button mat-raised-button type="submit" 
+                    (click)="ClickedOrders()"
+                    class="flex-1 bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    >View Orders</button>
+                </span>
+            </div>
+        </div> 
+    </form>
+</mat-card>
+
+<mat-card *ngIf="!hideOrderPage">
+    <mat-card-content>
+        <app-customers-orders
+        [selectedCustomerChild]="selectedCustomer"
+        (cancelled)="cancel('cancelled')">
+        </app-customers-orders>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="hideOrderPage">
+    <mat-card-footer class="details-message" layout="column">
+        <mat-card-title><span>{{ msg }}</span></mat-card-title>
+     </mat-card-footer>
+</mat-card>
