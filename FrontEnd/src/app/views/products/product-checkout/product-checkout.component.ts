@@ -54,7 +54,7 @@ export class ProductCheckoutComponent implements OnInit {
   state: FormControl;
   zipCode: FormControl;
 
-  constructor(private produtService: ProductsService, 
+  constructor(private productService: ProductsService, 
     private customerService: CustomersService, 
     private router: Router, 
     private orderService: OrdersService) {
@@ -121,7 +121,7 @@ export class ProductCheckoutComponent implements OnInit {
                if(error === 404)
                {
                 that.newCustomer = 'true';
-                that.produtService.loadUserDetailsForCheckOut(sessionEmail!).subscribe({
+                that.productService.loadUserDetailsForCheckOut(sessionEmail!).subscribe({
                     complete: console.info,
                     next: (details) => 
                     {
@@ -194,8 +194,14 @@ export class ProductCheckoutComponent implements OnInit {
     };
     this.cartItems.forEach(x => this.orderCost += x.listPrice);
     this.customer.customerOrders.push(newOrder);
-    const jsonString = JSON.stringify(this.customer);
-    console.log(jsonString);
+    //push to server. 
+    this.productService.post("customer", "", this.customer).subscribe((cust: any) => 
+    {
+     console.log(`added: ${cust}`)
+    });
+
+
+
 
     ///TODO
     var that = this;
