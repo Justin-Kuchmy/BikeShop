@@ -89,7 +89,7 @@ export class ProductCheckoutComponent implements OnInit {
 
   showConfirmationModal()
   {
-    this.confirmation = true;
+    this.confirmation = !this.confirmation;
   }
 
   ngOnInit(): void {
@@ -199,6 +199,7 @@ export class ProductCheckoutComponent implements OnInit {
     {
      console.log(`added: ${cust}`)
     });
+    this.showConfirmationModal();
 
 
 

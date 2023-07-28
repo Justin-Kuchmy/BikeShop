@@ -46,8 +46,8 @@ public class CustomerService {
         customer.setCustomerId(newCustomerId);
         var serviceInstance = getServicePort("order");
         customer.getCustomerOrders().forEach(order -> {order.setCustomerId(newCustomerId);});
-        var addedOrders = webClient.sendPostRequest(serviceInstance, customer.getCustomerOrders());
-        customer.setCustomerOrders(addedOrders);
+        var addedOrder = webClient.sendPostRequest(serviceInstance, customer.getCustomerOrders().get(0));
+        customer.getCustomerOrders().add(addedOrder);
         return customer;
 
        

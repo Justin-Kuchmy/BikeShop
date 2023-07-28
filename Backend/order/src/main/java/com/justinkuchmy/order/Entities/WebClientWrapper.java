@@ -10,11 +10,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Component
 public class WebClientWrapper {
     private WebClient webClient;
-    public WebClientWrapper(ServiceInstance serviceInstance) {
-    this.webClient = WebClient.builder().baseUrl("http://" +serviceInstance.getHost()+":" +serviceInstance.getPort()).build();
-    }
+    public WebClientWrapper() {}
      public List<Orderitem> sendPostRequest(ServiceInstance serviceInstance, List<Orderitem> orderItems) {
-      var res =  webClient
+      this.webClient = WebClient.builder().baseUrl("http://" +serviceInstance.getHost()+":" +serviceInstance.getPort()).build();
+      var res =   this.webClient
           .post()
           .uri("/api/v1/orderitem")
           .bodyValue(orderItems)
