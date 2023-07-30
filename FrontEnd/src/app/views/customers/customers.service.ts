@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GenericHttpService } from '@app/generic-http.service';
-import { customers } from './models/customers';
+import { customer } from './models/customer';
 import { Constants } from '@app/constants';
 import { Observable, retry, catchError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class CustomersService extends GenericHttpService<customers> {
+export class CustomersService extends GenericHttpService<customer> {
     
   constructor(httpClient: HttpClient) {
         super(httpClient, `customers`,);
@@ -26,13 +26,13 @@ export class CustomersService extends GenericHttpService<customers> {
     return res;
   }
 
-  public getCustomersAuthReq(): Observable<customers[]> {
+  public getCustomersAuthReq(): Observable<customer[]> {
     var header = {
         headers: new HttpHeaders()
           .set('Authorization',  `Bearer ${sessionStorage.getItem('token')}`)
       }
     return this.getHttpClient()
-      .get<customers[]>(`${Constants.getBaseUrl()}customers`, header)
+      .get<customer[]>(`${Constants.getBaseUrl()}customers`, header)
       .pipe(retry(2), catchError(this.handleError));
   } // getAll
 
@@ -45,17 +45,17 @@ export class CustomersService extends GenericHttpService<customers> {
   }
 
 
-  public getByIDAuthReq(id: number): Observable<customers> {
+  public getByIDAuthReq(id: number): Observable<customer> {
     var header = {
         headers: new HttpHeaders()
           .set('Authorization',  `Bearer ${sessionStorage.getItem('token')}`)
       }
     return this.getHttpClient()
-      .get<customers>(`${Constants.getBaseUrl()}customers/id/${id}`, header)
+      .get<customer>(`${Constants.getBaseUrl()}customers/id/${id}`, header)
       .pipe(retry(2), catchError(this.handleError));
   } // getSome
 
-  public getByStringAuthReq(prop: String, value: String): Observable<customers[]> {
+  public getByStringAuthReq(prop: String, value: String): Observable<customer[]> {
     var header = {
         headers: new HttpHeaders()
           .set('Authorization',  `Bearer ${sessionStorage.getItem('token')}`)
@@ -63,7 +63,7 @@ export class CustomersService extends GenericHttpService<customers> {
 
 
     return this.getHttpClient()
-      .get<customers[]>(`${Constants.CUSTOMERSEARCH}prop=${prop}&value=${value}`, header)
+      .get<customer[]>(`${Constants.CUSTOMERSEARCH}prop=${prop}&value=${value}`, header)
       .pipe(retry(2), catchError(this.handleError));
   } // getSome
 

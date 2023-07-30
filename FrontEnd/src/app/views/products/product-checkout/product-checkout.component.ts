@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
-import { customers } from '@app/views/customers/models/customers';
+import { customer } from '@app/views/customers/models/customer';
 import { orderlineitems } from '@app/views/orders/models/orderlineitems';
 import { products } from '../models/products';
 import { CustomersService } from '@app/views/customers/customers.service';
 import { OrdersService } from '@app/views/orders/orders.service';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { orders } from '@app/views/orders/models/orders';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -28,9 +28,9 @@ export class ProductCheckoutComponent implements OnInit {
   cartItems: orderlineitems[] = [];
   confirmation: boolean = false;
   newCustomer: string = "";
-  userExistsAsCustomer$?: Observable<customers>
+  userExistsAsCustomer$?: Observable<customer>
   
-  customer: customers = {
+  customer: customer = {
     customerId: 0,
     customerOrders: [],
     firstName: '',
@@ -193,13 +193,24 @@ export class ProductCheckoutComponent implements OnInit {
       orderItems      : this.cartItems
     };
     this.cartItems.forEach(x => this.orderCost += x.listPrice);
+    this.customer.customerOrders = [];
     this.customer.customerOrders.push(newOrder);
     //push to server. 
     this.productService.post("customer", "", this.customer).subscribe((cust: any) => 
     {
-     console.log(`added: ${cust}`)
+        const customerData: customer = cust as customer;
+        var customerOrder: orders = customerData.customerOrders.at(0)!;
+        this.newCustomerID = customerData.customerId;
+        this.newOrderID = customerOrder.orderId;
+        this.customerFullName = customerData.firstName + " " + customerData.lastName;
+        customerOrder.orderItems.forEach(orderitem => {this.orderCost += orderitem.listPrice});
+        console.log(customerData);
+        
+
+      this.showConfirmationModal();
+      
     });
-    this.showConfirmationModal();
+    
 
 
 

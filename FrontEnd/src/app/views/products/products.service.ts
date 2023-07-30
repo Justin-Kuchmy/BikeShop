@@ -5,7 +5,7 @@ import { products } from './models/products';
 import { Constants } from '@app/constants';
 import { Observable, retry, catchError, switchMap } from 'rxjs';
 import { Router } from '@angular/router'
-import { customers } from '../customers/models/customers';
+import { customer } from '../customers/models/customer';
 import { UserDTO } from '../auth/UserDTO';
 import { ListObjectWrapper } from '@app/ListObjectWrapper';
 @Injectable({

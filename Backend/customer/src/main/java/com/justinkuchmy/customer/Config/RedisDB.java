@@ -176,12 +176,12 @@ public class RedisDB {
             return null;
         }
     }
-    public Customer PostData(String Field, Customer... customer)
+    public Customer PostData(Customer customer)
     {
         List<Customer> EntityList = new ArrayList<Customer>();
         try
         {
-            if(EntityList.add(customerRepository.save(customer[0])))
+            if(EntityList.add(customerRepository.save(customer)))
             {
                 updateExistingRedisEntry(EntityList);
                 return EntityList.get(0);

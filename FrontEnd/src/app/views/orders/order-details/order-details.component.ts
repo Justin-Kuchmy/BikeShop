@@ -7,7 +7,7 @@ import { CustomersService } from '@app/views/customers/customers.service';
 import { OrdersService } from '../orders.service';
 import { ProductsService } from '@app/views/products/products.service';
 import { products } from '@app/views/products/models/products';
-import { customers } from '@app/views/customers/models/customers';
+import { customer } from '@app/views/customers/models/customer';
 import { map } from 'rxjs';
 import { ListObjectWrapper } from '@app/ListObjectWrapper';
 
@@ -31,7 +31,7 @@ import { ListObjectWrapper } from '@app/ListObjectWrapper';
 })
 export class OrderDetailsComponent implements OnInit {
 
-   CustomerforOrder: customers  = {
+   CustomerforOrder: customer  = {
        customerId: 0,
        firstName: "",
        lastName: "",

@@ -44,9 +44,11 @@ public class CustomerService {
     public Customer addCustomer(Customer customer) {
         var newCustomerId = redisDB.getNextOrderItemIdFromRepo();
         customer.setCustomerId(newCustomerId);
+        redisDB.PostData(customer);
         var serviceInstance = getServicePort("order");
         customer.getCustomerOrders().forEach(order -> {order.setCustomerId(newCustomerId);});
         var addedOrder = webClient.sendPostRequest(serviceInstance, customer.getCustomerOrders().get(0));
+        customer.getCustomerOrders().clear();
         customer.getCustomerOrders().add(addedOrder);
         return customer;
 

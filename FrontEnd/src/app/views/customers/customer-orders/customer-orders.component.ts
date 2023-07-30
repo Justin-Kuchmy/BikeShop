@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { orders } from '@app/views/orders/models/orders';
 import { OrdersService } from '@app/views/orders/orders.service';
 import { Observable, map, catchError } from 'rxjs';
-import { customers } from '../models/customers';
+import { customer } from '../models/customer';
 import { ListObjectWrapper } from '@app/ListObjectWrapper';
 import { orderlineitems } from '@app/views/orders/models/orderlineitems';
 import { ProductsService } from '@app/views/products/products.service';
@@ -23,7 +23,7 @@ export class CustomersOrdersComponent implements OnInit {
   msg: String = '';
   productName: String = "";
   hideEditForm: boolean;
-  @Input() selectedCustomerChild: customers = {
+  @Input() selectedCustomerChild: customer = {
     customerId: 0,
     customerOrders: [],
     firstName: '',

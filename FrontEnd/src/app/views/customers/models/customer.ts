@@ -1,6 +1,6 @@
 import { orders } from "@app/views/orders/models/orders";
 
-export interface customers 
+export interface customer 
 {
     customerId: number;
     customerOrders: orders[];

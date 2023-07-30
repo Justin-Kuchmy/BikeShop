@@ -4,7 +4,6 @@ import { products } from '../models/products';
 import { ProductsService } from '@app/views/products/products.service';
 import { orders } from '@app/views/orders/models/orders'
 import { orderlineitems } from '@app/views/orders/models/orderlineitems';
-import { customers } from '@app/views/customers/models/customers';
 import { ListObjectWrapper } from '../../../ListObjectWrapper';
 import { ProductFilter } from '../models/ProductFilter';
 

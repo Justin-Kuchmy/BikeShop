@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { map, catchError, switchMap, filter, take } from 'rxjs/operators';
 import { CustomersService } from '../customers.service';
 import { SearchFilterPipe } from './SearchFilterPipe';
-import { customers } from '../models/customers';
+import { customer } from '../models/customer';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,11 +21,11 @@ import { ListObjectWrapper } from '@app/ListObjectWrapper';
 })
 export class CustomerHomeComponent implements OnInit {
   msg: string;
-  customers$?: Observable<customers[]>;
+  customers$?: Observable<customer[]>;
   obs$?: Observable<string>;
   authorized: string[] = [];
-  customerDataSource$?: Observable<MatTableDataSource<customers>>;
-  customers: customers;
+  customerDataSource$?: Observable<MatTableDataSource<customer>>;
+  customers: customer;
   customerList = [];
   showNotAuthMessage: boolean = false;
   hideEditForm: boolean;
@@ -34,8 +34,8 @@ export class CustomerHomeComponent implements OnInit {
   //sorting
   size: number = 0;
   displayedColumns: string[] = ['id', 'firstname', 'lastname'];
-  dataSource: MatTableDataSource<customers> =
-    new MatTableDataSource<customers>();
+  dataSource: MatTableDataSource<customer> =
+    new MatTableDataSource<customer>();
   length: number;
   pageSize: number;
   searchName: String;
@@ -97,9 +97,9 @@ export class CustomerHomeComponent implements OnInit {
 
   public getCustomerData()
   {
-     (this.customerDataSource$ = this.customersService.get<ListObjectWrapper<customers>>("customer", "/all").pipe(
-      map((customer: ListObjectWrapper<customers>) => {
-        const dataSource = new MatTableDataSource<customers>(customer.objectList);
+     (this.customerDataSource$ = this.customersService.get<ListObjectWrapper<customer>>("customer", "/all").pipe(
+      map((customer: ListObjectWrapper<customer>) => {
+        const dataSource = new MatTableDataSource<customer>(customer.objectList);
         this.dataSource.data = customer.objectList;
         this.dataSource.sort = this.sort;
         if (this.paginator !== undefined) {
@@ -138,7 +138,7 @@ export class CustomerHomeComponent implements OnInit {
       });
   } // ngOnInit
 
-  select(selectedcustomer: customers): void {
+  select(selectedcustomer: customer): void {
     this.customers = selectedcustomer;
     this.msg = `customer ${selectedcustomer.customerId} selected`;
     this.hideEditForm = !this.hideEditForm;
@@ -152,16 +152,16 @@ export class CustomerHomeComponent implements OnInit {
     this.hideEditForm = !this.hideEditForm;
   } // cancel
 
-  update(Customers: customers): void {
+  update(Customers: customer): void {
     // this.customersService.update(Customers).subscribe({
     //   // Create observer object
     //   next: (emp: customers) => (this.msg = `Customer ${emp} updated!`),
     //   error: (err: Error) => (this.msg = `Update failed! - ${err.message}`),
     //   complete: () => (this.hideEditForm = !this.hideEditForm),
     // });
-    this.customersService.put<ListObjectWrapper<customers>>("customer","/edit",Customers).subscribe({
+    this.customersService.put<ListObjectWrapper<customer>>("customer","/edit",Customers).subscribe({
       // Create observer object
-      next: (emp: ListObjectWrapper<customers>) => {(this.msg = `Customer ${emp} updated!`)},
+      next: (emp: ListObjectWrapper<customer>) => {(this.msg = `Customer ${emp} updated!`)},
       complete: () => (this.hideEditForm = !this.hideEditForm),
       error: (err: Error) => (this.msg = `Update failed! - ${err.message}`),
     });
@@ -171,7 +171,7 @@ export class CustomerHomeComponent implements OnInit {
    * purpose: check whether we're doing an add or update by seeing
    * if there is an emp id (update) or not (add)
    */
-  save(Customers: customers): void {
+  save(Customers: customer): void {
     Customers.customerId ? this.update(Customers) : this.add(Customers);
   } // save
 
@@ -180,7 +180,7 @@ export class CustomerHomeComponent implements OnInit {
    * Passes new emp data to service and subscribes to services's http post
    * to get the returend Customer.
    */
-  add(Customer: customers): void {
+  add(Customer: customer): void {
     // Customer.customerId = 0;
     // this.customersService.add(Customer).subscribe({
     //   //create observer object
@@ -198,7 +198,7 @@ export class CustomerHomeComponent implements OnInit {
    * passed Customers id to the service and subs to the services https
    * delete to get the value returned which is number of the rows deleted
    */
-  delete(customer: customers): void {
+  delete(customer: customer): void {
     // this.customersService.delete(customer.customerId).subscribe({
     //   // Create observer object
     //   next: (numOfCustomerssDeleted: number) => {
@@ -253,7 +253,7 @@ export class CustomerHomeComponent implements OnInit {
         .getByString(prop, value)
         .pipe(
           map((customer: any) => {
-            const dataSource = new MatTableDataSource<customers>(customer);
+            const dataSource = new MatTableDataSource<customer>(customer);
             this.dataSource.data = customer;
             this.dataSource.sort = this.sort;
             if (this.paginator !== undefined) {
@@ -269,7 +269,7 @@ export class CustomerHomeComponent implements OnInit {
     const literals = {
       id: () =>
         (this.dataSource.data = this.dataSource.data.sort(
-          (a: customers, b: customers) =>
+          (a: customer, b: customer) =>
             sort.direction === 'asc'
               ? a.customerId < b.customerId
                 ? -1
@@ -280,7 +280,7 @@ export class CustomerHomeComponent implements OnInit {
         )),
       firstname: () =>
         (this.dataSource.data = this.dataSource.data.sort(
-          (a: customers, b: customers) =>
+          (a: customer, b: customer) =>
             sort.direction === 'asc'
               ? a.firstName < b.firstName
                 ? -1
@@ -291,7 +291,7 @@ export class CustomerHomeComponent implements OnInit {
         )),
       lastname: () =>
         (this.dataSource.data = this.dataSource.data.sort(
-          (a: customers, b: customers) =>
+          (a: customer, b: customer) =>
             sort.direction === 'asc'
               ? a.lastName < b.lastName
                 ? -1

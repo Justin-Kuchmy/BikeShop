@@ -140,11 +140,11 @@ public class RedisDB {
             return null;
         }
     }
-    public Order PostData(Order... Order)
+    public Order PostData(Order Order)
     {
         List<Order> EntityList = new ArrayList<Order>();
 
-        if(EntityList.add(orderRepository.save(Order[0])))
+        if(EntityList.add(orderRepository.save(Order)))
         {
             updateExistingRedisEntry(EntityList);
             return EntityList.get(0);

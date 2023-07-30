@@ -1,7 +1,7 @@
 import { FormControl,FormGroup,FormBuilder,Validators } from '@angular/forms';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { customers } from '../models/customers';
+import { customer } from '../models/customer';
 import { orders } from '@app/views/orders/models/orders';
 import { DeleteDialogComponent } from '@app/views/delete-dialog/delete-dialog.component';
 import { OrdersService } from '@app/views/orders/orders.service';
@@ -13,7 +13,7 @@ import { catchError, map, Observable } from 'rxjs';
   styleUrls: ['./customer-details.component.css'],
 })
 export class CustomerDetailsComponent implements OnInit {
-  @Input() selectedCustomer: customers = {
+  @Input() selectedCustomer: customer = {
     customerId: 0,
     customerOrders: [],
     firstName: '',
@@ -28,7 +28,7 @@ export class CustomerDetailsComponent implements OnInit {
   //msg: string = "";
   hideOrderPage: boolean = true;
   customersOrders$?: Observable<orders[]>;
-  @Input() customers: customers[] | null = null;
+  @Input() customers: customer[] | null = null;
   @Input() msg: string | null = null;
   @Output() cancelled = new EventEmitter();
   @Output() saved = new EventEmitter();
@@ -118,7 +118,7 @@ export class CustomerDetailsComponent implements OnInit {
     this.saved.emit(this.selectedCustomer);
   }
 
-  openDeleteDialog(selectedCustomer: customers): void {
+  openDeleteDialog(selectedCustomer: customer): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;

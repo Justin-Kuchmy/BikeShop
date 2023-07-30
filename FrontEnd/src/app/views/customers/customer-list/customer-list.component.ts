@@ -1,5 +1,5 @@
 import { Component, Input,  Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { customers } from '../models/customers';
+import { customer } from '../models/customer';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { customers } from '../models/customers';
     //styles: ['th { background-color: #04AA6D; color: white;}']
    })
    export class CustomerListComponent {
-    @Input() customers?: customers[];
+    @Input() customers?: customer[];
     @Output() selected = new EventEmitter();
    } // CustomerListComponent
 

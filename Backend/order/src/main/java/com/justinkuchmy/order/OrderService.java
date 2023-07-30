@@ -78,6 +78,7 @@ public class OrderService {
       var serviceInstance = getServicePort("orderitem");
       Order.getOrderItems().forEach(orderitem -> {orderitem.setOrderId(newOrderId);});
       var addedOrderItems = webClient.sendPostRequest(serviceInstance, Order.getOrderItems());
+      Order.getOrderItems().clear();
       Order.setOrderItems(addedOrderItems);
       return Order;
     }
