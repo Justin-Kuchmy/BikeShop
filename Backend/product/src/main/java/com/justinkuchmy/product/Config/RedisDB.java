@@ -33,11 +33,19 @@ public class RedisDB {
 
     private List<Product> redisDataFromfield(String field)
     {
-        var cachedValue = redisTemplate.opsForHash().get("product",field);
-        if (cachedValue != null) {
-            // Value is found in cache, return it
-            return parseCachedValue(cachedValue.toString());
+        try
+        {
+            var cachedValue = redisTemplate.opsForHash().get("product",field);
+            if (cachedValue != null) {
+                // Value is found in cache, return it
+                return parseCachedValue(cachedValue.toString());
+            }
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
         return null;
     }
     private List<Product> parseCachedValue(String cachedValue)

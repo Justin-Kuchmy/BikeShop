@@ -40,14 +40,22 @@ public class RedisDB {
     }
     private List<Order> redisDataFromField(String Field)
     {
-        var cachedValue = redisTemplate.opsForHash().get("order",Field);
-        if (cachedValue != null) {
+        try
+        {
+            var cachedValue = redisTemplate.opsForHash().get("order",Field);
+            if (cachedValue != null) {
             // Value is found in cache, return it
             if(!cachedValue.equals("null"))
             {
                 return parseCachedValue(cachedValue.toString());
             }
         }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+       
         return null;
     }
     private List<Order> parseCachedValue(String cachedValue)
