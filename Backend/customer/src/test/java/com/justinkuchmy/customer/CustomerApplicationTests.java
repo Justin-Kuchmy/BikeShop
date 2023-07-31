@@ -106,11 +106,8 @@ private RedisDB redisDB;
     {
         List<Customer> expectedCustomerItemList = getTestData();
         when(customerRepository.findAll()).thenReturn(expectedCustomerItemList);
-        when(hashOperations.get("customer", "all")).thenReturn(
-            "[{\"customerId\": 0,\"firstName\": \"first\",\"lastName\": \"last\",\"phone\": \"2262262626\",\"email\": \"Me@Me.com\",\"street\": \"132 fake st\",\"city\": \"london\",\"state\": \"TX\",\"zipCode\": \"12345\"},"
-            +
-            "{\"customerId\": 0,\"firstName\": \"Anotherfirst\",\"lastName\": \"Anotherlast\",\"phone\": \"2262267979\",\"email\": \"Metoo@Me.com\",\"street\": \"123 fake st\",\"city\": \"london\",\"state\": \"TX\",\"zipCode\": \"12345\"}]"
-        );
+        
+        when(hashOperations.get("customer", "all")).thenReturn(expectedCustomerItemList.toString());
 
          // call the method to test getting orders from redis
         var actualRedisCustomers = customerService.getCustomers();
