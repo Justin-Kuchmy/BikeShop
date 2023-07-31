@@ -12,13 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController 
 @RequestMapping("/")
 public class SecurityApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(SecurityApplication.class, args);
 	}
-    @GetMapping("")
-    public String hello(HttpServletRequest request) {
-        return "Running on port 8080";
-    }
 
 }
