@@ -201,7 +201,7 @@ private RedisDB redisDB;
         List<ServiceInstance> mockInstanceList = List.of(serviceInstance);
 
         when(discoveryClient.getInstances("order")).thenReturn(mockInstanceList);
-        when(webClient.sendPostRequest(mockInstanceList.get(0), customerToAdd.getCustomerOrders())).thenReturn(customerToAdd.getCustomerOrders());
+        when(webClient.sendPostRequest(mockInstanceList.get(0), customerToAdd.getCustomerOrders().get(0))).thenReturn(customerToAdd.getCustomerOrders().get(0));
         var res = customerService.addCustomer(customerToAdd);
         assertTrue(res != null);
         assertTrue(res.getCustomerId() == 1l);
