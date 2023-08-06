@@ -11,12 +11,10 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -25,8 +23,6 @@ import com.justinkuchmy.security.services.UserService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-     @Autowired
-    private JwtAuthFilter authFilter;
 
     private static final String[] WHITE_LIST_URLS = {
         "/api/auth/signIn",
@@ -41,10 +37,6 @@ public class SecurityConfig {
         "/api/v1/customers/email/**",
 
     };
-
-    // private static final String[] AUTHENTICATED_URLS = {
-    //     "/api/v1/customers",
-    // };
 
     private static final String[] ADMIN_URLS = {
         "/api/v1/customer/all",
@@ -66,24 +58,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.headers().frameOptions().disable();
-        return http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers(WHITE_LIST_URLS).permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/customer/id").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/customer").permitAll()
-                .requestMatchers(ADMIN_URLS).hasAnyAuthority("ADMIN")
-                .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                .anyRequest().permitAll()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+        http.headers((headers) -> headers.contentSecurityPolicy((csp) 
+        -> csp.policyDirectives("script-src 'self'; img-src http://localhost:8081 http://localhost:8082 http://localhost:8083 http://localhost:8084")));
 
-    }
+        return http.authorizeHttpRequests((authz) -> authz
+            .requestMatchers(WHITE_LIST_URLS).permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/v1/customer/id").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/v1/customer").permitAll()
+            .requestMatchers(ADMIN_URLS).hasAnyAuthority("ADMIN")
+            .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
+            .anyRequest().authenticated()).build();
+     }
 
     
     @Bean
