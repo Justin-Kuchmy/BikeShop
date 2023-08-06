@@ -66,7 +66,7 @@ return this.httpClient;
             default:
               throw new Error(`Invalid HTTP method: ${method}`);
           }}
-        ), catchError(error => {console.log(error);return throwError(error);})
+        ), catchError(error => {return throwError(error);})
       );
      //return serviceUrl$;
   }

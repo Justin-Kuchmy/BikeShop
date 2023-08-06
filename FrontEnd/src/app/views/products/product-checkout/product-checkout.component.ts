@@ -204,7 +204,6 @@ export class ProductCheckoutComponent implements OnInit {
         this.newOrderID = customerOrder.orderId;
         this.customerFullName = customerData.firstName + " " + customerData.lastName;
         customerOrder.orderItems.forEach(orderitem => {this.orderCost += orderitem.listPrice});
-        console.log(customerData);
         
 
       this.showConfirmationModal();

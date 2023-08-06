@@ -65,7 +65,6 @@ export class ProductsHomeComponent implements OnInit {
     {
       this.products = prod.objectList;
     })
-    console.log(`showing Details: ${this.selectedComponent}`);
   }
 
   showSearchPopUp()
