@@ -43,31 +43,11 @@ export class OrderDetailsComponent implements OnInit {
        zipCode: "",
        customerOrders: []
    };
-    
-    // customerForm: FormGroup;
-    // customerId: FormControl;
-    // firstName: FormControl;
-    // lastName: FormControl;
-    // phone: FormControl;
-    // email: FormControl;
-    // street: FormControl;
-    // city: FormControl;
-    // state: FormControl;
-    // zipCode: FormControl;
 
-    // orderForm: FormGroup;
-    // orderId: FormControl;
-    // orders_customerId: FormControl;
-    // orderStatus: FormControl;
-    // orderDate: FormControl;
-    // requiredDate: FormControl;
-    // shippedDate: FormControl;
-    // storeId: FormControl;
-    // staffId: FormControl;
     selectedCustomer: any;
     orderItems: orderlineitems[] = [];
     
-    constructor(private builder: FormBuilder, public customersService: CustomersService, public orderService: OrdersService, public productService: ProductsService){}
+    constructor(public customersService: CustomersService, public orderService: OrdersService, public productService: ProductsService){}
     @Input() selectedOrder: orders = {
         orderId        : 0,
         customerId     : 0,
@@ -88,6 +68,8 @@ export class OrderDetailsComponent implements OnInit {
     @Output() cancelled = new EventEmitter();
     @Output() saved = new EventEmitter();
     @Output() deleted = new EventEmitter();
+
+    //loads the selected order to show that orders details
     ngOnInit(): void {
 
             this.customersService.getByID("customer", "/id/"+this.selectedOrder.customerId).subscribe((Customer) => {

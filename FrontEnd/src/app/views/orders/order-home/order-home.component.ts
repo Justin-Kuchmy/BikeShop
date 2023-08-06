@@ -103,19 +103,6 @@ export class OrderHomeComponent implements OnInit {
    
   } // select
 
-  // public async getAuthorization(): Promise<any>
-  // {
-  //       var idToDelete = this.orders.orderId;
-  //       var response = this.orderService.deleteOrderByID(idToDelete);
-  //       var that = this;
-  //       response.subscribe({
-  //           next(res: any) {
-  //               that.msg = res;
-  //             }
-  //       })
-  //       this.orderList = this.orderList.filter(order => order.orderId !== idToDelete);
-  //       this.dataSource.data = this.orderList;
-  // }
 
   clickedDeleteButton() {
     this.deleteButtonClicked = !this.deleteButtonClicked;
@@ -128,14 +115,6 @@ export class OrderHomeComponent implements OnInit {
 
   public getOrderData()
   {
-    // this.orderService.get<ListObjectWrapper<orders>>("order", "/all").subscribe((orders: any) => {
-    //     this.dataSource = new MatTableDataSource<orders>(orders);
-    //     this.dataSource.data = orders;
-    //     this.dataSource.sort = this.sort;
-    //     if (this.paginator !== undefined) {
-    //       this.dataSource.paginator = this.paginator;
-    //     }
-    //   });
     (this.orderDataSource$ = this.orderService.get<ListObjectWrapper<orders>>("order", "/all").pipe(
       map((order: ListObjectWrapper<orders>) => {
         const dataSource = new MatTableDataSource<orders>(order.objectList);

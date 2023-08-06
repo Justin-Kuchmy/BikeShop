@@ -121,7 +121,7 @@ void getorderItems()
 		when(orderItemRepository.findAll()).thenReturn(orderItemList);
 		when(orderItemRepository.findItemByOrderId(1l)).thenReturn(Optional.of(orderItemList));
 
-		var AllItemsFromRepo = orderItemController.getOrderItemByOrderId(1l).getObjectList();
+		var AllItemsFromRepo = orderItemService.getOrderItemByOrderId(1l);
 		List<OrderItem> ItemsWithSpecificOrderID = AllItemsFromRepo.stream()
                                    .filter(obj -> obj.getOrderId().equals(1l))
                                    .collect(Collectors.toList());

@@ -99,12 +99,7 @@ class OrderApplicationTests {
 
         // mock repos for Mongo and Redis interactions
         when(orderRepository.findAll()).thenReturn(ExpectedOrderList);
-        when(hashOperations.get("order", "all")).thenReturn(
-                "[{\"orderId\": 1,\"customerId\": 1,\"orderStatus\": \"1\",\"orderDate\": \"1991-12-21\",\"requiredDate\": \"1991-12-21\",\"shippedDate\":  \"1991-12-21\",\"storeId\": 1,\"staffId\": 1},"
-                        +
-                        "{\"orderId\": 2,\"customerId\": 1,\"orderStatus\": \"1\",\"orderDate\": \"1991-12-21\",\"requiredDate\": \"1991-12-21\",\"shippedDate\":\"1991-12-21\",\"storeId\": 1,\"staffId\": 1},"
-                        +
-                        "{\"orderId\": 3,\"customerId\": 2,\"orderStatus\": \"1\",\"orderDate\": \"1991-12-21\",\"requiredDate\": \"1991-12-21\",\"shippedDate\":\"1991-12-21\",\"storeId\": 1,\"staffId\": 1}]");
+        when(hashOperations.get("order", "all")).thenReturn(ExpectedOrderList.toString());
 
         // call the method to test getting orders from redis
         var actualRedisOrders = orderService.getOrders();
@@ -128,11 +123,10 @@ class OrderApplicationTests {
         when(orderRepository.findAll()).thenReturn(ExpectedOrderList);
         when(hashOperations.get("order", "id::3")).thenReturn(
                 "[{\"orderId\": 3,\"customerId\": 2,\"orderStatus\": \"1\",\"orderDate\": \"1991-12-21\",\"requiredDate\": \"1991-12-21\",\"shippedDate\":  \"1991-12-21\",\"storeId\": 1,\"staffId\": 1}]");
-        var expectedOrderWithSpecificId = ExpectedOrderList.get(2);
         var actualWithSpecificId = orderService.getOrderById(3l);
 
         assertEquals(ExpectedOrderList.size(), orderService.getOrders().size());
-        assertTrue(expectedOrderWithSpecificId.getOrderId() == actualWithSpecificId.getOrderId());
+        assertTrue(actualWithSpecificId.getOrderId() == 3l);
 
     }
 

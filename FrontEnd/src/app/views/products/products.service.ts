@@ -3,11 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { GenericHttpService } from '@app/generic-http.service';
 import { products } from './models/products';
 import { Constants } from '@app/constants';
-import { Observable, retry, catchError, switchMap } from 'rxjs';
-import { Router } from '@angular/router'
-import { customer } from '../customers/models/customer';
+import { Observable, retry, catchError } from 'rxjs';
 import { UserDTO } from '../auth/UserDTO';
-import { ListObjectWrapper } from '@app/ListObjectWrapper';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,40 +16,33 @@ export class ProductsService extends GenericHttpService<products> {
     super(httpClient, `products`);
   } // constructor
 
+    //helper method to save project name locally 
     setProductName(productId: number, productName: string): void {
       this.productNames.set(productId, productName);
     }
   
+    //helper method to get project name for client side
     getProductName(productId: number): string | undefined {
       return this.productNames.get(productId);
     }
 
-  public getProductsNoAuth(): Observable<ListObjectWrapper<products>> {
-    var getInstancePort = Constants.getDiscoveryServerUrl() + "PRODUCT";
-    
-    //Get the port number for the product microservice.
-    // could also return an object with the host and port. ie a public 
-    // ip address so we dont have to hardcode localhost
-    var port$: Observable<number> = this.getHttpClient().get<number>(getInstancePort)
-    .pipe(retry(0), catchError(this.handleError));
-
-    var response$: Observable<ListObjectWrapper<products>> = port$.pipe(
-        switchMap((port: number) =>
-          this.getHttpClient()
-            .get<ListObjectWrapper<products>>(`http://localhost:${port}/api/v1/products/all`)
-            .pipe(retry(0), catchError(this.handleError))
-        )
-      );
-    return response$;
-  } // get all of a customers orders
-
-  public loadUserDetailsForCheckOut(dets: string): Observable<UserDTO> {
+  /**
+  if user has a existing orders or account, it will prefill some of checkout details
+  @param string which contains that user email
+  @return a user object which all the matching user details
+  */
+  public loadUserDetailsForCheckOut(details: string): Observable<UserDTO> {
     var res = this.getHttpClient()
-    .get<UserDTO>(`${Constants.getBaseUrl()}User/${dets}`)
+    .get<UserDTO>(`${Constants.getBaseUrl()}User/${details}`)
     .pipe(retry(2), catchError(this.handleError));
     return res;
   }
 
+  /**
+  Takes the orders productid and returns the matching product name for the order summary.
+  @param number representation of the product id
+  @return a string of the matching product name.
+  */
   public getProductNameByID(ProductID: number): Observable<string>
   {
     var res = this.getHttpClient().get(`http://localhost:8084/api/v1/product/name/` + ProductID, {responseType: 'text'});
