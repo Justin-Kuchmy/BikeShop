@@ -26,17 +26,13 @@ The Bikeshop website is a full-stack application built with Angular for the fron
 - Database: MongoDB, Redis
 
 ## Screenshots
-<!-- ![Screenshot of Product Page](/path/to/product-page-screenshot.png)-->
-*Coming Soon*
-
-<!--![Screenshot of Order Page](/path/to/order-page-screenshot.png)-->
-*Coming Soon*
-
-<!--![Screenshot of Admin Dashboard](/path/to/admin-dashboard-screenshot.png)-->
-*Coming Soon*
+ ![Screenshot of Product Filter](https://github.com/Justin-Kuchmy/BikeShop/blob/main/Screenshots/ProductFilter.PNG)
+ ![Screenshot of Product Page after filtered](https://github.com/Justin-Kuchmy/BikeShop/blob/main/Screenshots/AfterFilter.PNG)
+ ![Screenshot of Order Page](https://github.com/Justin-Kuchmy/BikeShop/blob/main/Screenshots/Order.PNG)
+ ![Screenshot of Customer Page](https://github.com/Justin-Kuchmy/BikeShop/blob/main/Screenshots/Customer.PNG)
 
 ## Architecture
-![UML Diagram of Bikeshop Architecture](https://github.com/Justin-Kuchmy/BikeShop/blob/main/UMLDiagram.PNG)
+![UML Diagram of Bikeshop Architecture](https://github.com/Justin-Kuchmy/BikeShop/blob/main/Screenshots/UMLDiagram.PNG)
 
 ## Getting Started
 To access the Bikeshop website, simply navigate to [www.justinKuchmy.com](http://www.JustinKuchmy.com) in your web browser. No further setup is required as the website is ready for use.
