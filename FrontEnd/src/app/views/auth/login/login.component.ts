@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
 
   loginClicked():void 
   {
-    //this.setEmailVariable(this.email.value);
-    //this.setPasswordVariable(this.password.value);
+    this.setEmailVariable(this.email.value);
+    this.setPasswordVariable(this.password.value);
     var result = this.app.authenticate({"email":this.email.value,"password":this.password.value})
     .subscribe((response: string) => {
         sessionStorage.setItem('token', response);

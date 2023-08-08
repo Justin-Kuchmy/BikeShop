@@ -49,7 +49,7 @@ return this.httpClient;
   }
 
   private sendRequest<T>(method: string, serviceName: string, path: string, data?: any): Observable<any> {
-    const headers = new HttpHeaders();
+    var headers = new HttpHeaders().set('Authorization',  `Bearer ${sessionStorage.getItem('token')}`);
     return this.getServiceUrl(serviceName).pipe(
         switchMap((port: number) =>
           {
@@ -122,30 +122,6 @@ return this.httpClient;
         (status = error.error.message)
       : // Get server-side error
         (status = `Error Code: ${error.status}\nMessage: ${error.message}`);
-    // switch(error.status)
-    // {
-    //   case 400:
-    //     window.alert("Bad Request: The server cannot process the request due to a client error.");
-    //     break;
-    //   case 401:
-    //     window.alert("Unauthorized: The request requires user authentication.");
-    //     break;
-    //   case 403:
-       
-    //     break;
-    //   case 404:
-    //     window.alert("Not Found: The server could not find the requested resource.");
-    //     break;
-    //   case 500:
-    //     window.alert("Internal Server Error: The server encountered an unexpected condition.");
-    //     break;
-    //   case 200:
-    //     window.alert(`${error.message}`);
-    //     break;
-    //   default:
-    //     window.alert(`An error occurred with the HTTP request. Error code: ${error.status}`);
-    //     break;
-    // }
 
     return throwError(() => error.status);
   }
