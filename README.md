@@ -34,9 +34,5 @@ The Bikeshop website is a full-stack application built with Angular for the fron
 ## Architecture
 ![UML Diagram of Bikeshop Architecture](https://github.com/Justin-Kuchmy/BikeShop/blob/main/Screenshots/UMLDiagram.PNG)
 
-## Getting Started
-To access the Bikeshop website, simply navigate to [www.justinKuchmy.com](http://www.JustinKuchmy.com) in your web browser. No further setup is required as the website is ready for use.
-*Domain Registered, to be updated soon*
-
 ## Contact
 If you have any questions, feedback, or issues, please feel free to reach out to me at [Jukuchmy@gmail.com](mailto:Jukuchmy@gmail.com).
