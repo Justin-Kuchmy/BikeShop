@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
     showInitialMessage: boolean = true;
     Title: string = "BikeShop CRUD Demo";
-    Message: string = `&emsp;&emsp;  Welcome to my CRUD Demo website! Created with simplicity in mind, this platform utilizes H2 Database for simplicity. The Spring Backend incorporates Spring Security, providing authorization and authentication features. On the frontend, Tailwind CSS and Angular combine to deliver a visually appealing and responsive user interface.<br>`
+    Message: string = `&emsp;&emsp;  Welcome to my CRUD Demo website! Created with simplicity in mind, this platform utilizes MongoDB, as well as RedisDB. The Spring Backend incorporates Spring Security, providing authorization and authentication features. On the frontend, Tailwind CSS and Angular combine to deliver a visually appealing and responsive user interface.<br>`
 
     +`&emsp;&emsp;   Users have the ability to view products and place orders, while admins enjoy additional privileges, including viewing all customers and orders. This segregation ensures efficient workflow management and facilitates effective customer and order tracking.<br>`
 
